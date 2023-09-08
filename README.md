@@ -43,3 +43,9 @@ API_KEY=<Riot API Key here>
 ```
 
 where you replace ```<Riot API Key here>``` with your Riot API Key that you can get for free by making an account at https://developer.riotgames.com/
+
+## Features
+![alt text](/ScreenShot%20Instructions/step1.png)
+![alt text](/ScreenShot%20Instructions/step2.png)
+![alt text](/ScreenShot%20Instructions/step3.png)
+![alt text](/ScreenShot%20Instructions/step4.png)
