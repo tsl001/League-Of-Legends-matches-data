@@ -47,14 +47,16 @@ where you replace ```<Riot API Key here>``` with your Riot API Key that you can 
 ## Features
 
 <p>Step 1</p>
-<img src="/ScreenShot Instructions/step1.png" width="33%" />
+<img src="/ScreenShot Instructions/step1.png"/>
 
 <p>Step 2</p>
-<img src="/ScreenShot Instructions/step2.png" width="33%" />
+<img src="/ScreenShot Instructions/step2.png"/>
 
 <p>Step 3</p>
-<img src="/ScreenShot Instructions/step3.png" width="33%" />
+<img src="/ScreenShot Instructions/step3.png"/>
 
 <p>Step 4</p>
-<img src="/ScreenShot Instructions/step4.png" width="33%" />
+<img src="/ScreenShot Instructions/step4.png"/>
+
+You can also click on another summoner's name in the match details to view their profile/matches
 
