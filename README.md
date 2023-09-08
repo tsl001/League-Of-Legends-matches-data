@@ -45,12 +45,16 @@ API_KEY=<Riot API Key here>
 where you replace ```<Riot API Key here>``` with your Riot API Key that you can get for free by making an account at https://developer.riotgames.com/
 
 ## Features
-<p float="left">
-  <img src="/ScreenShot Instructions/step1.png" width="33%" />
-  <img src="/ScreenShot Instructions/step2.png" width="33%" />
-  <img src="/ScreenShot Instructions/step3.png" width="33%" />
-</p>
 
-<p float="left">
-  <img src="/ScreenShot Instructions/step4.png" width="33%" />
-</p>
+<p>Step 1</p>
+<img src="/ScreenShot Instructions/step1.png" width="33%" />
+
+<p>Step 2</p>
+<img src="/ScreenShot Instructions/step2.png" width="33%" />
+
+<p>Step 3</p>
+<img src="/ScreenShot Instructions/step3.png" width="33%" />
+
+<p>Step 4</p>
+<img src="/ScreenShot Instructions/step4.png" width="33%" />
+
