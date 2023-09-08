@@ -1,0 +1,30 @@
+.stack > .btn {
+    width: 50%;
+    /* align-items: center; */
+    /* position: relative; */
+    /* text-align: center; */
+    padding: 2%;
+    margin: 5% 25% 0% 25%; /* top right bottom left*/
+    background-color: rgb(56 189 248);
+    color: rgb(255 255 255);
+    font-weight: bold;
+}
+
+.stack > .textfield {
+    width: 100%;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+.stack {
+    /* top: 50%;
+    left: 50%;
+    position: absolute; */
+    position: absolute;
+    top: 50%;
+    /* bottom: 25%; */
+    left: 25%;
+    right: 25%;
+    width: 50%;
+}
