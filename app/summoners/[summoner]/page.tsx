@@ -7,7 +7,7 @@ export default async function Summoner({ params }){
     const currentPatchVersion = await fetchPatchVersion()
     const summonerData = await fetchSummonerData(params.summoner)
 
-
+    
     return (
         <>
             <p className="font-bold flex justify-center">Summoner Name: {summonerData.summonerProfileData.name}</p>
