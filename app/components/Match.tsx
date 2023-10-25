@@ -15,7 +15,6 @@ import { fetchSummonerSpells } from '../fetch';
 
 function HeaderRow(victor: boolean) {
     var matchResult = null;
-    console.log(victor.victor)
     if(victor.victor == true){
         matchResult = "Victorious"
     }else if(victor.victor == false){
@@ -25,7 +24,7 @@ function HeaderRow(victor: boolean) {
     
 
     return (
-        <Card className={`${matchStyles['card-header']}`}>
+        <Card className={`${matchStyles['card-header']} ${matchResult === "Victorious" ? matchStyles['victorious'] : matchStyles['defeated']}`}>
                 <CardContent className={`${matchStyles['card-content']} text-white`}>
                     <div className={`${matchStyles['champ-photo']}`}>
                         <p>{matchResult} Team</p>

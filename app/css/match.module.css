@@ -46,7 +46,7 @@
 }
 
 .card-header {
-    background-color: rgba(52, 86, 139,0.5);
+    /* background-color: rgba(52, 86, 139,0.5); */
     color: white;
     /* display: flex;
     flex-direction: row;
