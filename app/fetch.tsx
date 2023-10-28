@@ -40,6 +40,18 @@ async function fetchSummonerSpells(){
     }
 }
 
+async function fetchSummonerRanks(summonerId: string){
+    const URL_FETCH = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerId + "?api_key=" + process.env.API_KEY
+    try{
+        const res = await fetch(URL_FETCH)
+        const dataReceived = await res.json()
+        return dataReceived
+    }catch(err){
+        console.log("Error trying to fetch summoner ID ", summonerId,": ", err)
+        return {}
+    }
+}
+
 async function fetchSummonerData(summonerName: string){
     const URL_FETCH = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName + "?api_key=" + process.env.API_KEY;
     try{
@@ -73,4 +85,4 @@ async function fetchSummonerMatches(summonerPuuid: string, numOfMatches: number)
 }
 
 // export const SummonerSpellsMap = await fetchSummonerSpells()
-export { fetchPatchVersion, fetchSummonerData, fetchSummonerSpells}
+export { fetchPatchVersion, fetchSummonerData, fetchSummonerSpells, fetchSummonerRanks}

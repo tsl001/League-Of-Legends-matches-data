@@ -11,7 +11,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { fetchSummonerSpells } from '../fetch';
+import { fetchSummonerSpells, fetchSummonerRanks } from '../fetch';
+import Image from 'next/image';
 
 function HeaderRow(victor: boolean) {
     var matchResult = null;
@@ -66,6 +67,25 @@ function HeaderRow(victor: boolean) {
     )
 }
 
+function ParticipantRank({rankTier, rankNum}){
+    if(rankTier !== undefined){
+        return (
+            <div className="flex flex-row">
+                <Image
+                    src={`/${rankTier}.png`}
+                    width={0}
+                    height={0}
+                    sizes='100%'
+                    style={{ width: '3vw', height: 'auto' }}
+                    alt="Summoner Rank Tier"
+                />
+                <p>{rankTier + ' ' + rankNum}</p>
+            </div> 
+        )
+    }
+}
+
+
 export default function Match({matchId , patchVersion, currentPuuid}: matchInterface){
     const [returnData, setReturnData] = useState<Array<summonerInterface>>([])
     const [championList, setChampionList] = useState<Array<string>>([])
@@ -73,12 +93,8 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
     const [completedDataRetrieval, setCompletedDataRetrieval] = useState(false)
 
     const [open, setOpen] = useState(false)
-    const [summonerToChampMap, setSummonerToChampMap] = useState<Map<string, string>>(new Map<string, string>)
-    const [summonerToPuuidMap, setSummonerToPuuidMap] = useState<Map<string, string>>(new Map<string, string>)
     const [winLossMap, setWinLossMap] = useState<Map<string, Array<Object>>>(new Map<string, Array<Object>>)
     const [currSummonerChamp, setCurrSummonerChamp] = useState<string>()
-    const [summNameToIndexMap, setSummNameToIndexMap] = useState<Map<string, number>>(new Map<string, number>) //This is to keep track of which summoner is based on
-                                                                                                               //their index in the returned Data
     const [highestDmg, setHighestDmg] = useState<number>(0)
     const [currSummMatchWon, setCurrSummMatchWon] = useState<boolean>()
     const router = useRouter();
@@ -99,13 +115,27 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
         
         for(let i = 0; i < numOfParticipants; i++){
            
-            const currParticipant = getMatchData.info.participants[i]
+            let currParticipant = getMatchData.info.participants[i]
             if(currParticipant.puuid === currentPuuid){
                 setCurrSummonerChamp(currParticipant.championName)
                 setCurrSummMatchWon(currParticipant.win === true ? true : false)
             }
-            summNameToIndexMap.set(currParticipant.summonerName , i)
+
+            const participantRanks = await fetchSummonerRanks(currParticipant["summonerId"])
             
+            
+            const rankedSoloObj = participantRanks.find((rankObj) => {
+                return rankObj["queueType"] === "RANKED_SOLO_5x5"
+            })
+
+            if(rankedSoloObj !== undefined){
+                currParticipant["rankTier"] = rankedSoloObj["tier"]
+                currParticipant["rankNum"] = rankedSoloObj["rank"]
+            }else{
+                currParticipant["rankTier"] = "Unranked"
+                currParticipant["rankNum"] = ""
+            }          
+
             if(currParticipant.win === true){
                 winLossMap.get('win').push(currParticipant)
             }else if(currParticipant.win === false){
@@ -115,11 +145,8 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
             if(currParticipant.totalDamageDealtToChampions > currHighestDmg){
                 currHighestDmg = currParticipant.totalDamageDealtToChampions
             }
-            
-            summonerToChampMap.set(currParticipant.summonerName,  currParticipant.championName)
-            summonerToPuuidMap.set(currParticipant.summonerName, currParticipant.puuid)
         }
-
+        
         setHighestDmg(currHighestDmg)
     }
 
@@ -130,9 +157,10 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
         returnList.push((
             <HeaderRow victor={true}/>
         ))
-
-        winLossMap.get('win').forEach((participant) => {
+         
+        for(const participant of winLossMap.get('win')){
             let itemsId = []
+            
             for(let i = 0; i < 7; i++){
                 itemsId.push(participant[`item${i}`])
             }
@@ -146,7 +174,7 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                             <CardMedia
                                 component="img"
                                 image={`http://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${participant.championName}.png`}
-                                sx={{ width: '2em', height: '2em' }}
+                                sx={{ width: 'auto', height: '5vh' }}
                                 alt="Champion Picture"
                             />
 
@@ -174,9 +202,11 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                         <div className={`${matchStyles['summoner-name']}`}>
                             <a 
                                 className="font-bold truncate cursor-pointer hover:underline"
-                                onClick={() => router.push(`/summoners/${participant.summonerName}`)}>
-                                {participant.summonerName}
+                                onClick={() => router.push(`/summoners/${participant["summonerName"]}`)}>
+                                {participant["summonerName"]}
                             </a>
+                               
+                            <ParticipantRank rankTier={participant["rankTier"]} rankNum={participant["rankNum"]}/>
                         </div>
                         
                         <div className={`${matchStyles['kda']}`}>
@@ -227,14 +257,14 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                     </CardContent>
                 </Card>
             ))
-        })
+        }
 
         // Header
         returnList.push((
             <HeaderRow victor={false}/>
         ))
 
-        winLossMap.get('loss').forEach((participant) => {
+        for(const participant of winLossMap.get('loss')){
             let itemsId = []
             for(let i = 0; i < 7; i++){
                 itemsId.push(participant[`item${i}`])
@@ -249,7 +279,7 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                             <CardMedia
                                 component="img"
                                 image={`http://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${participant.championName}.png`}
-                                sx={{ width: '2em', height: '2em' }}
+                                sx={{ width: 'auto', height: '5vh' }}
                                 alt="Champion Picture"
                             />
 
@@ -276,9 +306,11 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                         <div className={`${matchStyles['summoner-name']}`}>
                             <a 
                                 className="font-bold truncate cursor-pointer hover:underline"
-                                onClick={() => router.push(`/summoners/${participant.summonerName}`)}>
-                                {participant.summonerName}
+                                onClick={() => router.push(`/summoners/${participant["summonerName"]}`)}>
+                                {participant["summonerName"]}
                             </a>
+
+                            <ParticipantRank rankTier={participant["rankTier"]} rankNum={participant["rankNum"]}/>
                         </div>
                         
                         <div className={`${matchStyles['kda']}`}>
@@ -330,7 +362,7 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
                     </CardContent>
                 </Card>
             ))
-        })
+        }
 
         return returnList
     }
