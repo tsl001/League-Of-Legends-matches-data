@@ -49,7 +49,12 @@ export default async function Summoner({ params }){
                                     height={100}
                                     alt="Summoner Rank"
                                 />
-                                <p className="font-bold p-4">{rankData.tier + " " + rankData.rank}</p>
+                                <p className="font-bold">{rankData.tier + " " + rankData.rank}</p>
+                                <p className="font-bold">{"Wins: " + rankData["wins"]}</p>
+                                <p className="font-bold">{"Losses: " + rankData["losses"]}</p>
+                                <p className="font-bold">{
+                                    ((parseInt(rankData["wins"]) / (parseInt(rankData["wins"]) + parseInt(rankData["losses"]))) * 100).toFixed(2) + 
+                                    "% winrate"}</p>
                             </div>
                         )
                     })
