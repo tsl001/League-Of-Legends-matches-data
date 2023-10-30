@@ -96,7 +96,7 @@ function ParticipantContent({participant, router, patchVersion, highestDmg, most
                         <div className={`${matchStyles['champ-photo']}`}>
                             <CardMedia
                                 component="img"
-                                image={`http://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${participant.championName}.png`}
+                                image={`http://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${participant["championName"]}.png`}
                                 sx={{ width: 'auto', height: '3rem' }}
                                 alt="Champion Picture"
                             />
@@ -236,9 +236,15 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
         for(let i = 0; i < numOfParticipants; i++){
            
             let currParticipant = getMatchData.info.participants[i]
-            if(currParticipant.puuid === currentPuuid){
-                setCurrSummonerChamp(currParticipant.championName)
-                setCurrSummMatchWon(currParticipant.win === true ? true : false)
+            
+            if(currParticipant["championName"] === "FiddleSticks"){
+                currParticipant["championName"] = "Fiddlesticks"
+            }
+
+
+            if(currParticipant["puuid"] === currentPuuid){
+                setCurrSummonerChamp(currParticipant["championName"])
+                setCurrSummMatchWon(currParticipant["win"] === true ? true : false)
             }
 
             const participantRanks = await fetchSummonerRanks(currParticipant["summonerId"])
@@ -253,9 +259,9 @@ export default function Match({matchId , patchVersion, currentPuuid}: matchInter
             }else{
                 currParticipant["rankTier"] = "Unranked"
                 currParticipant["rankNum"] = ""
-            }          
+            }
 
-            if(currParticipant.win === true){
+            if(currParticipant["win"] === true){
                 winLossMap.get('win').push(currParticipant)
             }else if(currParticipant.win === false){
                 winLossMap.get('loss').push(currParticipant)
