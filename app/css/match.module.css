@@ -6,20 +6,6 @@
     background: rgba(5, 132, 255, 0.5)
 }
 
-.dmg-bar {
-    /* color: rgba(255, 0, 0, 1)!important; */
-    /* border: 5px solid!important; */
-    width: calc(100% / 9);
-    /* border-radius: 5px;
-    border: 5px; */
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    /* color: rgba(255, 0, 0, 1)!important; */
-    /* border: 5px solid!important; */
-    /* overflow: hidden; */
-}
-
 .overall-card {
     position: relative;
     background-color: transparent;
@@ -32,43 +18,34 @@
 }
 
 .card-stack {
-    /* align-items: center; */
     position: relative;
-    background-color: transparent;
+    background-color: rgba(7, 7, 55,1);
     display: flex;
     color: white;
-    /* align-items: flex-end; */
     align-items: center;
-    /* border: 5px solid red; */
     flex-direction: column;
-    width: 50%;
-    
+}
+
+.participant-spells {
+    width: '2rem'; 
+    height: '2rem';
+    overflow: 'visible';
 }
 
 .card-header {
     /* background-color: rgba(52, 86, 139,0.5); */
     color: white;
-    /* display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center; */
-    /* border: 5px solid blueviolet; */
-    height: 7vh;
-    width: 100%;
+    width: '2rem'; 
+    height: '2rem';
+    overflow: 'visible';
     border: 1px solid white;
-}
-
-.match-card {
-    width: 50vw;
-    height: 7vh;
-    border: 1px solid;
 }
 
 .card {
     /* padding: 0 10%; */
     border: 1px solid white;
-    height: 11vh;
-    /* min-height: 1vh; */
+    height: 7rem;
+    width: 60rem;
     overflow: visible;
 }
 
@@ -78,45 +55,44 @@
     justify-content: space-evenly;
     align-items: space-evenly;
     flex-direction: row;
-    
-    /* display: flex;
-    align-items: center; */
-    /* width: 100%;
-    position: relative; */
 }
 
 .champ-photo {
-    width: calc(100% / 9);
+    width: calc(100%/8);
     display: flex;
     flex-direction: row;
 }
 
 .summoner-name {
-    width: calc(100% / 9);
+    width: calc(100%/8);
 }
 
 .kda {
-    width: calc(100% / 9);
+    width: calc(100%/8);
     margin-left: 3rem;
 }
 
 .dmg-dealt {
-    width: calc(100% / 9);
+    width: calc(100%/8);
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-flow: column;
 }
 
 .gold-earned {
     margin-left: 1rem;
-    width: calc(100% / 9);
+    width: calc(100%/8);
 }
 
 .cs {
-    width: calc(100% / 9);
+    width: calc(100%/8);
 }
 
 .wards-placed {
-    width: calc(100% / 9);
+    width: calc(100%/8);
 }
 
 .items {
-    width: calc(100% / 9);
+    width: calc(100%/8);
 }

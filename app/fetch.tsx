@@ -57,7 +57,7 @@ async function fetchSummonerData(summonerName: string){
     try{
         const res = await fetch(URL_FETCH)
         const dataReceived: summonerInterface = await res.json()
-        const matchesData = await fetchSummonerMatches(dataReceived.puuid, 5)
+        const matchesData = await fetchSummonerMatches(dataReceived.puuid, 1)
 
         return {
             'summonerProfileData': dataReceived,

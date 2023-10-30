@@ -9,7 +9,7 @@
 }
 
 html {
-  /* font-size: 10px; */
+  font-size: 15px;
   position: relative;
   width: 100%;
   float: left;
@@ -26,13 +26,15 @@ body{
   /* color: white; */
   /* background-image: url(./bg-gif2.gif); */
   background-color: #070720;
-  font-size: 1rem;
   font-weight: 400;
   line-height: 1.35;
-  overflow: scroll;
   background-size: cover;
   background-repeat: no-repeat;
   /* background-position: center; */
+}
+
+p {
+  text-align: center;
 }
 
 
